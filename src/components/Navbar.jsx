@@ -24,11 +24,9 @@ export default function Navbar() {
       scrolled ? 'bg-navy/98 shadow-lg shadow-black/30 py-3' : 'bg-navy/80 py-4'
     } backdrop-blur-xl border-b border-white/5`}>
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        <a href="#inicio" className="flex items-center gap-3">
-          <img src="/irvsg-website/images/logo.png" alt="IRVSG" className="h-9 w-auto" />
-          <span className="font-outfit font-bold text-sm text-white/80 hidden sm:block leading-tight">
-            IR Virtual<br/>Solution Group
-          </span>
+        <a href="#inicio" className="flex items-center">
+          <img src="/irvsg-website/images/logo.png" alt="IRVSG" className="h-11 w-auto"
+            style={{ mixBlendMode: 'screen' }} />
         </a>
 
         <ul className="hidden md:flex items-center gap-8">

@@ -99,12 +99,12 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Floating image thumbnails */}
-        <div className="hidden lg:flex absolute bottom-16 left-8 gap-3">
+        {/* Floating image thumbnails — top-right, away from stats */}
+        <div className="hidden lg:flex flex-col absolute top-28 right-6 gap-3">
           <img src="/irvsg-website/images/lobby-office.jpg" alt="IRVSG Office"
-            className="w-28 h-20 object-cover rounded-xl border border-white/10 shadow-2xl opacity-70 hover:opacity-100 transition-opacity" loading="lazy" />
+            className="w-24 h-16 object-cover rounded-xl border border-white/10 shadow-2xl opacity-60 hover:opacity-90 transition-opacity" loading="lazy" />
           <img src="/irvsg-website/images/lobby-robot.jpg" alt="IRVSG Robot"
-            className="w-28 h-20 object-cover rounded-xl border border-white/10 shadow-2xl opacity-70 hover:opacity-100 transition-opacity" loading="lazy" />
+            className="w-24 h-16 object-cover rounded-xl border border-white/10 shadow-2xl opacity-60 hover:opacity-90 transition-opacity" loading="lazy" />
         </div>
       </div>
     </section>
