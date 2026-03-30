@@ -41,13 +41,16 @@ export default function Hero() {
         <source src="/irvsg-website/videos/hero-video.mp4" type="video/mp4" />
       </video>
 
+      {/* Grid lines overlay */}
+      <div className="absolute inset-0 grid-lines z-[1]"></div>
+
       {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/70 to-navy/40 z-[1]"></div>
-      <div className="absolute inset-0 bg-gradient-to-r from-navy/60 via-transparent to-navy/60 z-[1]"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/70 to-navy/40 z-[2]"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-navy/60 via-transparent to-navy/60 z-[2]"></div>
 
       {/* Glow effects */}
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-cyan/5 rounded-full blur-3xl z-[1]"></div>
-      <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-gold/5 rounded-full blur-3xl z-[1]"></div>
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-cyan/5 rounded-full blur-3xl z-[2]"></div>
+      <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-gold/5 rounded-full blur-3xl z-[2]"></div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full">
         <div className="max-w-3xl mx-auto text-center">
@@ -63,16 +66,15 @@ export default function Hero() {
 
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-cyan/10 border border-cyan/25 rounded-full px-4 py-1.5 text-cyan text-xs font-semibold tracking-wider mb-8">
-            <span className="w-1.5 h-1.5 bg-cyan rounded-full animate-pulse"></span>
+            <span className="w-1.5 h-1.5 bg-cyan rounded-full animate-pulse-dot"></span>
             AGENCIA DE AUTOMATIZACIÓN IA · KATY, TEXAS
           </div>
 
           {/* Headline */}
           <h1 className="font-outfit font-extrabold text-5xl md:text-7xl leading-[1.05] tracking-tight mb-6">
-            Menos tareas<br/>
-            manuales.{' '}
-            <span className="text-gold">Más tiempo</span><br/>
-            <span className="text-cyan">para crecer.</span>
+            Menos tareas<br className="sm:hidden" />
+            {' '}manuales.<br />
+            <span className="text-gold">Más tiempo para crecer.</span>
           </h1>
 
           {/* Sub */}
@@ -84,11 +86,11 @@ export default function Hero() {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <a href={WA_LINK} target="_blank" rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 bg-wa hover:opacity-90 text-white px-8 py-4 rounded-lg font-bold text-base transition-all hover:-translate-y-0.5">
+              className="flex items-center justify-center gap-2 bg-wa hover:brightness-110 text-white px-8 py-4 rounded-lg font-bold text-base transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-wa/20">
               💬 Diagnóstico Gratis
             </a>
             <a href="#caso"
-              className="flex items-center justify-center gap-2 border border-white/20 hover:border-white/40 text-white px-8 py-4 rounded-lg font-medium text-base transition-all hover:-translate-y-0.5">
+              className="flex items-center justify-center gap-2 border border-white/20 hover:border-gold/40 text-white hover:text-gold px-8 py-4 rounded-lg font-medium text-base transition-all duration-300 hover:-translate-y-0.5">
               Ver Caso de Éxito →
             </a>
           </div>
@@ -108,7 +110,6 @@ export default function Hero() {
             ))}
           </div>
         </div>
-
       </div>
     </section>
   )

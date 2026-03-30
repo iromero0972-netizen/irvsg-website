@@ -50,13 +50,11 @@ export default function WhyUs() {
         </div>
 
         {/* Decoration images */}
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid sm:grid-cols-2 gap-4">
           <img src="/irvsg-website/images/robot-precision.jpg" alt="Precisión IA" loading="lazy"
-            className="w-full h-32 object-cover rounded-xl border border-white/8 opacity-60 hover:opacity-80 transition-opacity col-span-1" />
-          <img src="/irvsg-website/images/ai-team.jpg" alt="Equipo IA IRVSG" loading="lazy"
-            className="w-full h-32 object-cover rounded-xl border border-white/8 opacity-60 hover:opacity-80 transition-opacity col-span-1" />
-          <img src="/irvsg-website/images/ir-chip.jpg" alt="Tecnología IRVSG" loading="lazy"
-            className="w-full h-32 object-cover rounded-xl border border-white/8 opacity-60 hover:opacity-80 transition-opacity col-span-1" />
+            className="w-full h-40 object-cover rounded-xl border border-white/8 opacity-60 hover:opacity-90 transition-all duration-300 hover:border-gold/20" />
+          <img src="/irvsg-website/images/robot-problem-solving.jpg" alt="IA resolviendo problemas" loading="lazy"
+            className="w-full h-40 object-cover rounded-xl border border-white/8 opacity-60 hover:opacity-90 transition-all duration-300 hover:border-gold/20" />
         </div>
       </div>
     </section>

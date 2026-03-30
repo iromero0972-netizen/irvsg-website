@@ -7,6 +7,7 @@ import CaseStudy from './components/CaseStudy'
 import WhyUs from './components/WhyUs'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
+import WhatsAppButton from './components/WhatsAppButton'
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
       <WhyUs />
       <CTA />
       <Footer />
+      <WhatsAppButton />
     </div>
   )
 }

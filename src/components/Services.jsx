@@ -97,7 +97,7 @@ export default function Services() {
 function ServiceCard({ s, c, delay }) {
   const ref = useReveal(delay)
   return (
-    <div ref={ref} className={`relative bg-navy-card border border-white/8 ${c.border} rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1`}>
+    <div ref={ref} className={`relative bg-navy-card border border-white/8 ${c.border} rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-[3px]`}>
       <div className={`absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r ${c.bar} to-transparent`}></div>
       <div className="p-6">
         <div className="flex items-start justify-between mb-4">

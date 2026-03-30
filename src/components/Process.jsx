@@ -41,8 +41,10 @@ export default function Process() {
           </p>
         </div>
 
-        {/* Steps */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-14">
+        {/* Steps with connecting line */}
+        <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-14">
+          {/* Connecting line (visible on lg only) */}
+          <div className="hidden lg:block absolute top-7 left-[12%] right-[12%] h-px bg-gradient-to-r from-gold/40 via-cyan/40 to-gold/40"></div>
           {steps.map((s, i) => (
             <StepCard key={i} s={s} delay={i * 120} />
           ))}
@@ -82,8 +84,8 @@ function StepCard({ s, delay }) {
 
   return (
     <div ref={ref} className="text-center group">
-      <div className="w-14 h-14 rounded-full border border-cyan/40 group-hover:border-cyan group-hover:bg-cyan/10 flex items-center justify-center mx-auto mb-5 transition-all duration-300">
-        <span className="font-mono-jetbrains font-bold text-cyan text-lg">{s.n}</span>
+      <div className="w-14 h-14 rounded-full border border-cyan/40 group-hover:border-gold group-hover:bg-gold/10 group-hover:shadow-lg group-hover:shadow-gold/20 flex items-center justify-center mx-auto mb-5 transition-all duration-300">
+        <span className="font-mono-jetbrains font-bold text-cyan group-hover:text-gold text-lg transition-colors duration-300">{s.n}</span>
       </div>
       <h4 className="font-outfit font-bold text-base mb-2">{s.title}</h4>
       <p className="text-white/50 text-sm leading-relaxed">{s.desc}</p>

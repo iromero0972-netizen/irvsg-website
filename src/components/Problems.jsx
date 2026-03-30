@@ -48,7 +48,7 @@ export default function Problems() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {problems.map((p, i) => (
-            <div key={i} className="bg-navy/60 border border-white/6 rounded-xl p-6 hover:border-white/14 transition-colors">
+            <div key={i} className="bg-navy/60 border border-white/6 rounded-xl p-6 hover:border-gold/25 hover:-translate-y-[3px] transition-all duration-300">
               <div className="text-3xl mb-4">{p.icon}</div>
               <h3 className="font-outfit font-bold text-base mb-2">{p.title}</h3>
               <p className="text-white/50 text-sm leading-relaxed">{p.desc}</p>

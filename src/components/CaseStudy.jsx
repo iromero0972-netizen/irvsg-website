@@ -66,7 +66,7 @@ export default function CaseStudy() {
             {/* Workflows */}
             <div className="space-y-3">
               {workflows.map((w, i) => (
-                <div key={i} className="flex items-center gap-3 bg-navy-mid rounded-lg px-4 py-3">
+                <div key={i} className="flex items-center gap-3 bg-navy-mid rounded-lg px-4 py-3 transition-transform duration-200 hover:translate-x-1.5 cursor-default">
                   <span className="text-xl flex-shrink-0">{w.icon}</span>
                   <div>
                     <div className="text-sm font-semibold">{w.name}</div>
