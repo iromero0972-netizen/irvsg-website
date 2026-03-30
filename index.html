@@ -20,7 +20,7 @@ nav.scrolled{padding:.6rem 2rem;background:rgba(10,14,26,.95)}
 .nc{background:var(--gold)!important;color:var(--navy)!important;padding:.5rem 1.2rem!important;border-radius:100px!important;font-weight:600!important;text-transform:none!important;letter-spacing:0!important;font-size:.85rem!important;transition:transform .2s,box-shadow .2s!important}.nc:hover{transform:translateY(-1px);box-shadow:0 4px 20px var(--gg)}
 .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 4rem;overflow:hidden}
 .hvb{position:absolute;inset:0;z-index:0}.hvb video{width:100%;height:100%;object-fit:cover}.hvb::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,var(--navy) 5%,rgba(10,14,26,.7) 40%,rgba(10,14,26,.5))}
-.hero>*:not(.hvb):not(.gbg){position:relative;z-index:1}
+.hero>*:not(.gbg):not(.orb){position:relative;z-index:1}
 .gbg{position:absolute;inset:0;background-image:linear-gradient(rgba(241,245,249,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(241,245,249,.02) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse at center,black 20%,transparent 70%);pointer-events:none}
 .hb{display:inline-flex;align-items:center;gap:.5rem;background:var(--cd);border:1px solid rgba(34,211,238,.15);border-radius:100px;padding:.4rem 1rem;font-size:.8rem;color:var(--cyan);font-weight:500;margin-bottom:2rem;animation:fu .8s ease both}
 .hb .dot{width:6px;height:6px;background:var(--cyan);border-radius:50%;animation:pu 2s infinite}
@@ -92,8 +92,9 @@ footer{border-top:1px solid rgba(241,245,249,.05);padding:3rem 2rem;text-align:c
 </nav>
 
 <section class="hero">
-<div class="hvb"><video autoplay muted loop playsinline><source src="videos/hero-video.mp4" type="video/mp4"></video></div>
 <div class="gbg"></div>
+<div class="orb orb-g" style="position:absolute;top:-100px;left:-200px;width:500px;height:500px;border-radius:50%;background:rgba(240,180,41,.06);filter:blur(120px);pointer-events:none;z-index:0"></div>
+<div class="orb orb-c" style="position:absolute;bottom:-100px;right:-150px;width:400px;height:400px;border-radius:50%;background:rgba(34,211,238,.04);filter:blur(120px);pointer-events:none;z-index:0"></div>
 <div class="hb"><span class="dot"></span>Agencia de Automatización IA · Katy, Texas</div>
 <h1>Menos tareas manuales.<br><span class="ac">Más tiempo para crecer.</span></h1>
 <p class="hs">Automatizamos los procesos operativos, administrativos y contables de tu PYME con Inteligencia Artificial. Resultados reales en 72 horas.</p>
