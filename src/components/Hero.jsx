@@ -52,11 +52,11 @@ export default function Hero() {
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full">
         <div className="max-w-3xl mx-auto text-center">
           {/* Logo prominente */}
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-4">
             <img
               src="/irvsg-website/images/logo.png"
               alt="IR Virtual Solution Group"
-              className="w-72 md:w-96 h-auto"
+              className="w-[340px] md:w-[560px] h-auto"
               style={{ mixBlendMode: 'screen' }}
             />
           </div>
@@ -109,13 +109,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Floating image thumbnails — top-right, away from stats */}
-        <div className="hidden lg:flex flex-col absolute top-28 right-6 gap-3">
-          <img src="/irvsg-website/images/lobby-office.jpg" alt="IRVSG Office"
-            className="w-24 h-16 object-cover rounded-xl border border-white/10 shadow-2xl opacity-60 hover:opacity-90 transition-opacity" loading="lazy" />
-          <img src="/irvsg-website/images/lobby-robot.jpg" alt="IRVSG Robot"
-            className="w-24 h-16 object-cover rounded-xl border border-white/10 shadow-2xl opacity-60 hover:opacity-90 transition-opacity" loading="lazy" />
-        </div>
       </div>
     </section>
   )
