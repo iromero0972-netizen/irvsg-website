@@ -1,18 +1,784 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/irvsg-website/images/logo.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="IR Virtual Solution Group — Automatización con IA para PYMEs en Texas. Katy, TX." />
-    <title>IR Virtual Solution Group — Automatización IA para PYMEs</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/irvsg-website/assets/index-CHjHKKoj.js"></script>
-    <link rel="stylesheet" crossorigin href="/irvsg-website/assets/index-DjoQykfP.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="IR Virtual Solution Group — Automatización con IA para PYMEs en Texas. Resultados reales en 72 horas. Katy, TX." />
+  <title>IR Virtual Solution Group — Automatización IA para PYMEs</title>
+  <link rel="icon" type="image/png" href="images/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════
+       BASE RESET & VARIABLES
+    ═══════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:         #0a0e1a;
+      --navy-card:    #111827;
+      --navy-mid:     #1a2235;
+      --gold:         #f0b429;
+      --gold-dim:     #d4a017;
+      --gold-glow:    rgba(240,180,41,0.15);
+      --cyan:         #22d3ee;
+      --cyan-dim:     rgba(34,211,238,0.08);
+      --white:        #f1f5f9;
+      --white-dim:    #94a3b8;
+      --white-muted:  #64748b;
+      --green:        #34d399;
+      --coral:        #fb7185;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* Noise texture overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    /* ── UTILITIES ── */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+    .section-label {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--cyan);
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+    }
+
+    /* ═══════════════════════════════════════
+       0. SPLASH
+    ═══════════════════════════════════════ */
+    #splash {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 9997;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: opacity 1s ease;
+    }
+    #splash.fading { opacity: 0; pointer-events: none; }
+
+    #splash-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    #splash-logo-wrap {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    #splash-logo {
+      max-width: 200px;
+      width: 50vw;
+      opacity: 0.92;
+      filter: drop-shadow(0 0 30px rgba(240,180,41,0.6)) brightness(1.15);
+      animation: floatY 3s ease-in-out infinite;
+    }
+    @keyframes floatY {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+
+    #skip-btn {
+      position: absolute;
+      bottom: 2rem; right: 2rem;
+      z-index: 3;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.65);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; letter-spacing: 0.06em;
+      padding: 0.5rem 1.1rem; border-radius: 6px;
+      cursor: pointer; backdrop-filter: blur(8px);
+      transition: all 0.2s;
+    }
+    #skip-btn:hover { background: rgba(255,255,255,0.18); color: #fff; }
+
+    /* ═══════════════════════════════════════
+       1. NAVBAR
+    ═══════════════════════════════════════ */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      padding: 1.4rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: padding 0.3s, background 0.3s, opacity 0.5s;
+      opacity: 0; pointer-events: none;
+    }
+    #navbar.visible    { opacity: 1; pointer-events: all; }
+    #navbar.scrolled   { padding: 0.8rem 2rem; background: rgba(10,14,26,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(240,180,41,0.1); }
+
+    .nav-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-brand img { height: 34px; width: auto; }
+    .nav-brand-name { font-size: 0.88rem; font-weight: 700; color: var(--white); }
+    .nav-brand-name em { color: var(--gold); font-style: normal; }
+
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--white-dim); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--gold) !important; color: #000 !important;
+      font-weight: 700 !important; padding: 0.5rem 1.2rem;
+      border-radius: 6px; font-size: 0.84rem !important;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--gold-dim) !important; transform: translateY(-1px); }
+
+    .hamburger {
+      display: none; background: none;
+      border: 1px solid rgba(255,255,255,0.18);
+      color: var(--white); width: 38px; height: 38px;
+      border-radius: 8px; cursor: pointer;
+      font-size: 1.15rem; align-items: center; justify-content: center;
+    }
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ═══════════════════════════════════════
+       2. HERO
+    ═══════════════════════════════════════ */
+    #hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    #hero-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,14,26,0.97) 0%, rgba(10,14,26,0.55) 55%, rgba(10,14,26,0.38) 100%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(34,211,238,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34,211,238,0.035) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center; max-width: 820px;
+      padding: 80px 1.5rem 0;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      background: var(--cyan-dim); border: 1px solid rgba(34,211,238,0.2);
+      color: var(--cyan); font-family: 'JetBrains Mono', monospace;
+      font-size: 0.73rem; padding: 0.42rem 1rem;
+      border-radius: 100px; margin-bottom: 2.2rem; letter-spacing: 0.06em;
+    }
+    .badge-dot {
+      width: 7px; height: 7px; background: var(--green); border-radius: 50%;
+      animation: badgePulse 2s ease-in-out infinite;
+    }
+    @keyframes badgePulse {
+      0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(52,211,153,0.5); }
+      50%      { opacity: 0.7; box-shadow: 0 0 0 4px rgba(52,211,153,0); }
+    }
+    .hero-h1 {
+      font-size: clamp(2.6rem, 5.5vw, 4.4rem); font-weight: 800;
+      line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.5rem;
+    }
+    .hero-h1 .gold-line { color: var(--gold); display: block; }
+    .hero-sub {
+      font-size: clamp(1rem, 1.8vw, 1.18rem); color: var(--white-dim);
+      max-width: 620px; margin: 0 auto 2.75rem;
+      line-height: 1.75; font-weight: 300;
+    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 4.5rem; }
+    .btn-gold {
+      background: var(--gold); color: #000; font-weight: 700;
+      padding: 0.875rem 2rem; border-radius: 8px; text-decoration: none;
+      font-size: 0.95rem; border: none; cursor: pointer; transition: all 0.25s;
+    }
+    .btn-gold:hover { background: var(--gold-dim); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(240,180,41,0.4); }
+    .btn-outline {
+      background: transparent; color: var(--white); font-weight: 600;
+      padding: 0.875rem 2rem; border-radius: 8px; text-decoration: none;
+      font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.22); transition: all 0.25s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+    .hero-stats { display: flex; justify-content: center; gap: 3.5rem; flex-wrap: wrap; }
+    .hero-stat-item { text-align: center; }
+    .stat-num {
+      display: block; font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(2rem, 3vw, 2.6rem); font-weight: 500;
+      color: var(--gold); line-height: 1;
+    }
+    .stat-label { display: block; font-size: 0.72rem; color: var(--white-muted); margin-top: 0.35rem; text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* ═══════════════════════════════════════
+       3. ABOUT
+    ═══════════════════════════════════════ */
+    #nosotros { padding: 7rem 0; background: var(--navy); }
+    .about-layout { display: grid; grid-template-columns: 1fr 420px; gap: 5rem; align-items: start; }
+    @media (max-width: 920px) { .about-layout { grid-template-columns: 1fr; gap: 3rem; } }
+    .about-h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 1.75rem; }
+    .about-h2 span { color: var(--gold); }
+    .about-body p { color: var(--white-dim); font-size: 0.98rem; line-height: 1.8; margin-bottom: 1.1rem; font-weight: 300; }
+    .clients-strip { margin-top: 2.5rem; }
+    .clients-label { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--white-muted); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.9rem; }
+    .clients-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .client-pill { background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.08); color: var(--white-dim); font-size: 0.82rem; padding: 0.4rem 0.95rem; border-radius: 100px; transition: border-color 0.2s, color 0.2s; }
+    .client-pill:hover { border-color: var(--gold); color: var(--white); }
+    .ceo-card { background: var(--navy-card); border: 1px solid rgba(240,180,41,0.2); border-radius: 18px; padding: 2.25rem; text-align: center; }
+    .ceo-avatar-wrap { position: relative; display: inline-block; margin-bottom: 1.25rem; }
+    .ceo-avatar { width: 116px; height: 116px; border-radius: 50%; object-fit: cover; border: 2.5px solid var(--gold); }
+    .ceo-verified { position: absolute; bottom: 4px; right: -2px; background: var(--gold); color: #000; font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 100px; white-space: nowrap; }
+    .ceo-name { font-size: 1.18rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; }
+    .ceo-role { font-size: 0.82rem; color: var(--white-muted); margin-bottom: 1.25rem; }
+    .ceo-quote { background: rgba(240,180,41,0.06); border-left: 3px solid var(--gold); border-radius: 0 10px 10px 0; padding: 1rem 1.2rem; text-align: left; font-size: 0.875rem; color: var(--white-dim); line-height: 1.75; font-style: italic; margin-bottom: 1.5rem; }
+    .ceo-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,0.06); border-radius: 10px; overflow: hidden; }
+    .ceo-stat { background: var(--navy-mid); padding: 0.85rem 0.5rem; text-align: center; }
+    .ceo-stat .s-num { display: block; font-family: 'JetBrains Mono', monospace; font-size: 1.15rem; font-weight: 500; color: var(--gold); }
+    .ceo-stat .s-label { font-size: 0.65rem; color: var(--white-muted); margin-top: 0.2rem; }
+
+    /* ═══════════════════════════════════════
+       4. PROBLEMAS
+    ═══════════════════════════════════════ */
+    #problemas { padding: 7rem 0; background: var(--navy-mid); }
+    .section-head { text-align: center; margin-bottom: 3.75rem; }
+    .section-head h2 { font-size: clamp(1.9rem, 3.2vw, 2.9rem); font-weight: 800; letter-spacing: -0.025em; margin-bottom: 0.9rem; }
+    .section-head p { color: var(--white-dim); max-width: 560px; margin: 0 auto; font-size: 1.02rem; font-weight: 300; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+    @media (max-width: 900px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .grid-4 { grid-template-columns: 1fr; } }
+    .problem-card { background: var(--navy-card); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 1.75rem; transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s; }
+    .problem-card:hover { border-color: var(--coral); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(251,113,133,0.12); }
+    .p-icon { font-size: 2.1rem; margin-bottom: 1rem; display: block; }
+    .p-title { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.55rem; }
+    .p-desc { font-size: 0.85rem; color: var(--white-muted); line-height: 1.65; }
+
+    /* ═══════════════════════════════════════
+       5. SERVICIOS
+    ═══════════════════════════════════════ */
+    #servicios { padding: 7rem 0; background: var(--navy); }
+    .grid-2x2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 1.75rem; }
+    @media (max-width: 700px) { .grid-2x2 { grid-template-columns: 1fr; } }
+    .service-card { background: var(--navy-card); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; overflow: hidden; transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s; }
+    .service-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 16px 48px var(--gold-glow); }
+    .svc-img-box { position: relative; height: 195px; overflow: hidden; }
+    .svc-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.45s; }
+    .service-card:hover .svc-img { transform: scale(1.05); }
+    .svc-num { position: absolute; top: 0.9rem; left: 0.9rem; background: rgba(10,14,26,0.82); font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--gold); padding: 0.22rem 0.6rem; border-radius: 4px; letter-spacing: 0.1em; }
+    .svc-body { padding: 1.6rem; }
+    .svc-category { font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; color: var(--cyan); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.45rem; }
+    .svc-title { font-size: 1.12rem; font-weight: 700; color: var(--white); margin-bottom: 0.6rem; }
+    .svc-desc { font-size: 0.86rem; color: var(--white-dim); line-height: 1.65; margin-bottom: 1.1rem; }
+    .svc-features { list-style: none; }
+    .svc-features li { font-size: 0.8rem; color: var(--white-muted); padding: 0.28rem 0 0.28rem 1.1rem; position: relative; }
+    .svc-features li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-size: 0.78rem; }
+    .svc-video-strip { position: relative; border-radius: 16px; overflow: hidden; height: 255px; }
+    .svc-video-strip video { width: 100%; height: 100%; object-fit: cover; }
+    .svc-video-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(10,14,26,0.85) 0%, rgba(10,14,26,0.4) 100%); display: flex; align-items: center; padding: 2.5rem; }
+    .svc-video-text h3 { font-size: clamp(1.3rem, 2.2vw, 1.85rem); font-weight: 800; line-height: 1.2; margin-bottom: 0.65rem; }
+    .svc-video-text p { color: var(--white-dim); font-size: 0.9rem; max-width: 440px; }
+    .text-gold { color: var(--gold); }
+
+    /* ═══════════════════════════════════════
+       6. PROCESO
+    ═══════════════════════════════════════ */
+    #proceso { padding: 7rem 0; background: var(--navy-mid); }
+    .steps-container { position: relative; }
+    .steps-connector { position: absolute; top: 39px; left: calc(12.5% + 1px); right: calc(12.5% + 1px); height: 2px; background: linear-gradient(to right, var(--gold), var(--cyan)); }
+    .steps-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; position: relative; z-index: 1; }
+    @media (max-width: 700px) { .steps-row { grid-template-columns: repeat(2, 1fr); } .steps-connector { display: none; } }
+    .step-item { text-align: center; padding: 0 0.75rem; }
+    .step-bubble { width: 78px; height: 78px; border-radius: 50%; background: var(--navy-card); border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.4rem; font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; font-weight: 500; color: var(--gold); transition: all 0.3s; }
+    .step-item:hover .step-bubble { background: var(--gold); color: #000; box-shadow: 0 0 0 8px var(--gold-glow); }
+    .step-title { font-size: 0.98rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
+    .step-desc { font-size: 0.82rem; color: var(--white-muted); line-height: 1.65; }
+    .proceso-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3.5rem; }
+    @media (max-width: 600px) { .proceso-gallery { grid-template-columns: 1fr; } }
+    .proceso-photo { border-radius: 14px; overflow: hidden; height: 215px; }
+    .proceso-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .proceso-photo:hover img { transform: scale(1.05); }
+
+    /* ═══════════════════════════════════════
+       7. CASO DE ÉXITO
+    ═══════════════════════════════════════ */
+    #caso { padding: 7rem 0; background: var(--navy); }
+    .caso-card { background: var(--navy-card); border: 1px solid rgba(240,180,41,0.2); border-radius: 22px; overflow: hidden; display: grid; grid-template-columns: 1fr 460px; }
+    @media (max-width: 920px) { .caso-card { grid-template-columns: 1fr; } }
+    .caso-body { padding: 3rem; }
+    .caso-live-tag { display: inline-flex; align-items: center; gap: 0.45rem; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); color: var(--green); font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; padding: 0.3rem 0.8rem; border-radius: 100px; margin-bottom: 1.5rem; }
+    .caso-live-tag::before { content: '●'; font-size: 0.48rem; }
+    .caso-title { font-size: clamp(1.5rem, 2.5vw, 2.1rem); font-weight: 800; line-height: 1.15; margin-bottom: 0.9rem; }
+    .caso-desc { color: var(--white-dim); font-size: 0.92rem; line-height: 1.78; margin-bottom: 1.85rem; font-weight: 300; }
+    .caso-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,0.06); border-radius: 12px; overflow: hidden; margin-bottom: 2rem; }
+    @media (max-width: 500px) { .caso-metrics { grid-template-columns: repeat(2, 1fr); } }
+    .c-metric { background: var(--navy-mid); padding: 0.9rem 0.6rem; text-align: center; }
+    .c-metric .cn { display: block; font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 500; color: var(--gold); }
+    .c-metric .cl { font-size: 0.65rem; color: var(--white-muted); margin-top: 0.22rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .workflow-list { list-style: none; }
+    .workflow-item { display: flex; align-items: center; gap: 0.9rem; padding: 0.85rem 1rem; background: var(--navy-mid); border-radius: 10px; margin-bottom: 0.55rem; border: 1px solid rgba(255,255,255,0.05); transition: transform 0.2s, border-color 0.2s; }
+    .workflow-item:hover { transform: translateX(6px); border-color: rgba(240,180,41,0.2); }
+    .wf-icon { font-size: 1.15rem; flex-shrink: 0; }
+    .wf-info { flex: 1; }
+    .wf-name { font-size: 0.88rem; font-weight: 600; color: var(--white); }
+    .wf-flow { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--cyan); margin-top: 0.15rem; }
+    .wf-badge { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25); color: var(--green); font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; font-weight: 700; padding: 0.18rem 0.55rem; border-radius: 100px; flex-shrink: 0; }
+    .caso-photo { position: relative; overflow: hidden; }
+    @media (max-width: 920px) { .caso-photo { height: 260px; } }
+    .caso-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .caso-photo-gradient { position: absolute; inset: 0; background: linear-gradient(to right, var(--navy-card) 0%, transparent 30%); }
+    @media (max-width: 920px) { .caso-photo-gradient { background: linear-gradient(to bottom, transparent 55%, var(--navy-card) 100%); } }
+
+    /* ═══════════════════════════════════════
+       8. WHY US
+    ═══════════════════════════════════════ */
+    #why { padding: 7rem 0; background: var(--navy-mid); }
+    .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-bottom: 1.75rem; }
+    @media (max-width: 600px) { .why-grid { grid-template-columns: 1fr; } }
+    .why-card { background: var(--navy-card); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 2rem; transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s; }
+    .why-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 12px 32px var(--gold-glow); }
+    .why-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+    .why-title { font-size: 1.02rem; font-weight: 700; color: var(--white); margin-bottom: 0.55rem; }
+    .why-desc { font-size: 0.86rem; color: var(--white-muted); line-height: 1.65; }
+    .why-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 600px) { .why-photos { grid-template-columns: 1fr; } }
+    .why-photo { position: relative; border-radius: 14px; overflow: hidden; height: 235px; }
+    .why-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .why-photo:hover img { transform: scale(1.05); }
+    .why-photo-caption { position: absolute; bottom: 1rem; left: 1rem; background: rgba(10,14,26,0.82); font-size: 0.72rem; color: var(--white-dim); padding: 0.28rem 0.75rem; border-radius: 100px; backdrop-filter: blur(6px); }
+
+    /* ═══════════════════════════════════════
+       9. CTA
+    ═══════════════════════════════════════ */
+    #contacto { padding: 7rem 0; background: var(--navy); }
+    .cta-box { background: linear-gradient(135deg, var(--navy-card) 0%, var(--navy-mid) 100%); border: 1px solid rgba(240,180,41,0.22); border-radius: 24px; padding: 5rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+    .cta-box::before { content: ''; position: absolute; top: -70px; right: -70px; width: 300px; height: 300px; background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%); border-radius: 50%; }
+    .cta-box::after { content: ''; position: absolute; bottom: -80px; left: -60px; width: 260px; height: 260px; background: radial-gradient(circle, var(--cyan-dim) 0%, transparent 70%); border-radius: 50%; }
+    .cta-h2 { position: relative; z-index: 1; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.1rem; }
+    .cta-h2 span { color: var(--gold); }
+    .cta-sub { position: relative; z-index: 1; color: var(--white-dim); font-size: 1.02rem; max-width: 480px; margin: 0 auto 2.5rem; font-weight: 300; }
+    .cta-btns { position: relative; z-index: 1; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-wa { display: inline-flex; align-items: center; gap: 0.65rem; background: #25D366; color: #fff; font-weight: 700; font-size: 0.92rem; padding: 0.9rem 2rem; border-radius: 8px; text-decoration: none; transition: all 0.25s; }
+    .btn-wa:hover { background: #1ebe5a; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(37,211,102,0.35); }
+    .btn-email { display: inline-flex; align-items: center; gap: 0.65rem; background: transparent; color: var(--white); font-weight: 600; font-size: 0.92rem; padding: 0.9rem 2rem; border-radius: 8px; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); transition: all 0.25s; }
+    .btn-email:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
+
+    /* ═══════════════════════════════════════
+       10. FOOTER
+    ═══════════════════════════════════════ */
+    footer { background: var(--navy-card); border-top: 1px solid rgba(255,255,255,0.06); padding: 3rem 1.5rem 2rem; }
+    .footer-wrap { max-width: 1140px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+    .footer-logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+    .footer-logo img { height: 30px; }
+    .footer-logo span { font-size: 0.88rem; font-weight: 700; color: var(--white-dim); }
+    .footer-logo em { color: var(--gold); font-style: normal; }
+    .footer-tagline { font-size: 0.8rem; color: var(--white-muted); text-align: center; }
+    .footer-nav { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; justify-content: center; }
+    .footer-nav a { font-size: 0.8rem; color: var(--white-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--gold); }
+    .footer-copy { font-size: 0.72rem; color: var(--white-muted); text-align: center; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.05); width: 100%; }
+
+    /* ═══════════════════════════════════════
+       SCROLL REVEAL
+    ═══════════════════════════════════════ */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.revealed { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; }
+    .d4 { transition-delay: 0.4s; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     0. SPLASH
+════════════════════════════════════ -->
+<div id="splash">
+  <video id="splash-video" autoplay muted playsinline preload="auto">
+    <source src="videos/intro-video.mp4" type="video/mp4">
+  </video>
+  <div id="splash-logo-wrap">
+    <img id="splash-logo" src="images/logo.png" alt="IR Virtual Solution Group" />
+  </div>
+  <button id="skip-btn" aria-label="Saltar intro">Skip →</button>
+</div>
+
+<!-- ════════════════════════════════════
+     1. NAVBAR
+════════════════════════════════════ -->
+<nav id="navbar">
+  <a href="#" class="nav-brand">
+    <img src="images/logo.png" alt="IRVSG" />
+    <span class="nav-brand-name">IR Virtual <em>Solution Group</em></span>
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#caso">Caso de Éxito</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li>
+      <a href="https://wa.me/19546997514?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20mi%20negocio"
+         class="nav-cta" target="_blank" rel="noopener noreferrer">Diagnóstico Gratis</a>
+    </li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Abrir menú">☰</button>
+</nav>
+
+<!-- ════════════════════════════════════
+     2. HERO
+════════════════════════════════════ -->
+<section id="hero">
+  <video id="hero-video" autoplay muted loop playsinline preload="auto">
+    <source src="videos/hero-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="badge-dot"></span>Agencia de Automatización IA · Katy, Texas</div>
+    <h1 class="hero-h1">
+      Menos tareas manuales.
+      <span class="gold-line">Más tiempo para crecer.</span>
+    </h1>
+    <p class="hero-sub">Automatizamos los procesos operativos, administrativos y contables de tu PYME con Inteligencia Artificial. Resultados reales en 72 horas.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/19546997514?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20mi%20negocio" class="btn-gold" target="_blank" rel="noopener noreferrer">💬 Diagnóstico Gratis</a>
+      <a href="#caso" class="btn-outline">Ver Caso de Éxito →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat-item"><span class="stat-num" data-target="90" data-suffix="%">0%</span><span class="stat-label">Reducción tareas manuales</span></div>
+      <div class="hero-stat-item"><span class="stat-num" data-target="72" data-suffix="h">0h</span><span class="stat-label">Primer workflow activo</span></div>
+      <div class="hero-stat-item"><span class="stat-num" data-target="30" data-suffix="+">0+</span><span class="stat-label">Años experiencia CPA</span></div>
+      <div class="hero-stat-item"><span class="stat-num" data-target="100" data-suffix="%">0%</span><span class="stat-label">Clientes satisfechos</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     3. ABOUT
+════════════════════════════════════ -->
+<section id="nosotros">
+  <div class="container">
+    <span class="section-label reveal">// Sobre nosotros</span>
+    <div class="about-layout">
+      <div>
+        <h2 class="about-h2 reveal">Automatización con IA, hecha por alguien que <span>entiende tu negocio</span></h2>
+        <div class="about-body">
+          <p class="reveal d1">IR Virtual Solution Group nació de una idea simple: los dueños de negocios pequeños no deberían perder horas en tareas que una máquina puede hacer mejor. Somos una agencia de automatización con Inteligencia Artificial basada en Katy, Texas, creada para ayudar a PYMEs como la tuya a trabajar más inteligente — no más duro.</p>
+          <p class="reveal d2">Diseñamos, construimos y mantenemos flujos de automatización personalizados que eliminan el trabajo repetitivo de tu día a día: desde capturar pedidos y responder clientes, hasta generar reportes financieros y publicar en redes sociales. Todo sin que tengas que aprender código ni contratar un equipo de tecnología.</p>
+          <p class="reveal d3">Nuestros clientes son emprendedores y dueños de PYMEs en Texas que están cansados de hacer todo manualmente. Restaurantes, panaderías, tiendas, servicios profesionales, contadores, consultores — si tu negocio pierde tiempo en tareas repetitivas, nosotros las automatizamos.</p>
+        </div>
+        <div class="clients-strip reveal d4">
+          <p class="clients-label">Trabajamos con</p>
+          <div class="clients-row">
+            <span class="client-pill">🍰 Panaderías</span>
+            <span class="client-pill">🏪 Tiendas</span>
+            <span class="client-pill">🍽️ Restaurantes</span>
+            <span class="client-pill">💼 Servicios profesionales</span>
+            <span class="client-pill">📊 Contadores</span>
+            <span class="client-pill">🏠 Negocios locales</span>
+          </div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="ceo-card">
+          <div class="ceo-avatar-wrap">
+            <img class="ceo-avatar" src="images/lobby-robot.jpg" alt="Ignacio Romero — CEO IRVSG" />
+            <span class="ceo-verified">30+ años CPA</span>
+          </div>
+          <div class="ceo-name">Ignacio Romero</div>
+          <div class="ceo-role">CEO &amp; Fundador, IRVSG</div>
+          <blockquote class="ceo-quote">"Llevo más de 30 años ayudando a negocios con sus números como Contador Público. Ahora combino esa experiencia con Inteligencia Artificial para darle a cada PYME las mismas herramientas que usan las empresas grandes — pero a su medida y a su precio."</blockquote>
+          <div class="ceo-stats">
+            <div class="ceo-stat"><span class="s-num">30+</span><span class="s-label">Años de experiencia</span></div>
+            <div class="ceo-stat"><span class="s-num">CPA</span><span class="s-label">Contador Certificado</span></div>
+            <div class="ceo-stat"><span class="s-num">TX</span><span class="s-label">Katy, Texas</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     4. PROBLEMAS
+════════════════════════════════════ -->
+<section id="problemas">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label reveal">// El problema</span>
+      <h2 class="reveal">¿Te suena familiar?</h2>
+      <p class="reveal d1">Los dueños de PYMEs pierden entre 15–25 horas semanales en tareas que la IA puede hacer mejor.</p>
+    </div>
+    <div class="grid-4">
+      <div class="problem-card reveal"><span class="p-icon">📱</span><div class="p-title">Pedidos perdidos</div><p class="p-desc">Órdenes que llegan por WhatsApp, DMs o teléfono y se pierden entre la rutina del día.</p></div>
+      <div class="problem-card reveal d1"><span class="p-icon">🔁</span><div class="p-title">Respuestas repetitivas</div><p class="p-desc">Respondes las mismas preguntas cien veces al día. Tu tiempo vale más que eso.</p></div>
+      <div class="problem-card reveal d2"><span class="p-icon">📊</span><div class="p-title">Reportes manuales</div><p class="p-desc">Cierras el mes sacando números a mano. Sin visibilidad en tiempo real de tu negocio.</p></div>
+      <div class="problem-card reveal d3"><span class="p-icon">📲</span><div class="p-title">Redes abandonadas</div><p class="p-desc">Sabes que debes publicar, pero nunca hay tiempo. Tu presencia digital sufre.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     5. SERVICIOS
+════════════════════════════════════ -->
+<section id="servicios">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label reveal">// Soluciones</span>
+      <h2 class="reveal">Automatización que genera resultados reales</h2>
+    </div>
+    <div class="grid-2x2">
+      <div class="service-card reveal">
+        <div class="svc-img-box"><img class="svc-img" src="images/ai-boardroom.jpg" alt="Automatización de Pedidos" loading="lazy" /><span class="svc-num">01</span></div>
+        <div class="svc-body"><div class="svc-category">Operaciones</div><div class="svc-title">Automatización de Pedidos</div><p class="svc-desc">Captura órdenes 24/7 desde cualquier canal, envía confirmaciones automáticas y notifica a tu equipo en tiempo real.</p><ul class="svc-features"><li>Formulario web + integración multicanal</li><li>Confirmación automática al cliente</li><li>Dashboard de administración en tiempo real</li><li>Alertas de pedidos nuevos y pendientes</li></ul></div>
+      </div>
+      <div class="service-card reveal d1">
+        <div class="svc-img-box"><img class="svc-img" src="images/ai-team.jpg" alt="Asistentes Virtuales IA" loading="lazy" /><span class="svc-num">02</span></div>
+        <div class="svc-body"><div class="svc-category">Atención al Cliente</div><div class="svc-title">Asistentes Virtuales IA</div><p class="svc-desc">Un chatbot entrenado con la información de tu negocio responde preguntas, califica prospectos y agenda citas — 24/7.</p><ul class="svc-features"><li>Responde FAQs automáticamente</li><li>Califica leads antes de pasarlos a ti</li><li>Agenda citas en tu calendario</li><li>Escalada inteligente a humano</li></ul></div>
+      </div>
+      <div class="service-card reveal d2">
+        <div class="svc-img-box"><img class="svc-img" src="images/robot-finance.jpg" alt="Automatización Contable" loading="lazy" /><span class="svc-num">03</span></div>
+        <div class="svc-body"><div class="svc-category">Finanzas</div><div class="svc-title">Automatización Contable</div><p class="svc-desc">Con más de 30 años como CPA entendemos tus números. Automatizamos reportes financieros y alertas de desempeño.</p><ul class="svc-features"><li>Reporte semanal de ventas automático</li><li>Alertas de márgenes y flujo de caja</li><li>Exportación a QuickBooks / Sheets</li><li>Dashboard financiero en tiempo real</li></ul></div>
+      </div>
+      <div class="service-card reveal d3">
+        <div class="svc-img-box"><img class="svc-img" src="images/smart-building.jpg" alt="Social Media con IA" loading="lazy" /><span class="svc-num">04</span></div>
+        <div class="svc-body"><div class="svc-category">Marketing</div><div class="svc-title">Social Media con IA</div><p class="svc-desc">Generamos contenido de Instagram y Facebook personalizado para tu negocio usando IA — listo para publicar cada semana.</p><ul class="svc-features"><li>3–5 posts semanales generados por IA</li><li>Adaptado a tu marca y audiencia</li><li>Imágenes + captions + hashtags</li><li>Programación automática</li></ul></div>
+      </div>
+    </div>
+    <div class="svc-video-strip reveal">
+      <video autoplay muted loop playsinline preload="auto"><source src="videos/services-video.mp4" type="video/mp4"></video>
+      <div class="svc-video-overlay">
+        <div class="svc-video-text">
+          <h3>Tu negocio trabajando <span class="text-gold">24/7</span><br />sin que tú estés presente.</h3>
+          <p>Cada automatización está diseñada para tu negocio específico. No templates genéricos — workflows reales, resultados medibles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     6. PROCESO
+════════════════════════════════════ -->
+<section id="proceso">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label reveal">// Metodología</span>
+      <h2 class="reveal">De idea a automatización en 4 pasos</h2>
+      <p class="reveal d1">Sin meses de implementación. Un proceso probado que entrega tu primer workflow en 72 horas.</p>
+    </div>
+    <div class="steps-container">
+      <div class="steps-connector"></div>
+      <div class="steps-row">
+        <div class="step-item reveal"><div class="step-bubble">01</div><div class="step-title">Diagnóstico</div><p class="step-desc">Analizamos tus procesos, identificamos cuellos de botella y definimos qué automatizar primero.</p></div>
+        <div class="step-item reveal d1"><div class="step-bubble">02</div><div class="step-title">Diseño</div><p class="step-desc">Creamos el mapa del workflow: entradas, salidas, reglas de negocio e integraciones. Aprobas antes de construir.</p></div>
+        <div class="step-item reveal d2"><div class="step-bubble">03</div><div class="step-title">Build &amp; Testing</div><p class="step-desc">Construimos con datos reales de tu negocio. Pruebas exhaustivas hasta que funciona perfectamente.</p></div>
+        <div class="step-item reveal d3"><div class="step-bubble">04</div><div class="step-title">Go-Live</div><p class="step-desc">Activamos en producción, te capacitamos y monitoreamos. Retroalimentación a las 72h.</p></div>
+      </div>
+    </div>
+    <div class="proceso-gallery">
+      <div class="proceso-photo reveal"><img src="images/data-center.jpg" alt="Data Center IRVSG" loading="lazy" /></div>
+      <div class="proceso-photo reveal d2"><img src="images/ir-chip.jpg" alt="IR Chip — Tecnología IRVSG" loading="lazy" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     7. CASO DE ÉXITO
+════════════════════════════════════ -->
+<section id="caso">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label reveal">// Caso de éxito real · Katy, TX</span>
+      <h2 class="reveal">Así lo hacemos en la práctica</h2>
+    </div>
+    <div class="caso-card reveal">
+      <div class="caso-body">
+        <span class="caso-live-tag">Caso de Éxito Activo</span>
+        <h3 class="caso-title">Andy's Bakery — Pastelería Artesanal</h3>
+        <p class="caso-desc">Transformamos una pastelería artesanal en un negocio digital-first: pedidos online con confirmaciones automáticas, dashboard de administración con PIN de acceso, y contenido de Instagram generado por IA cada semana.</p>
+        <div class="caso-metrics">
+          <div class="c-metric"><span class="cn">100%</span><span class="cl">Digital</span></div>
+          <div class="c-metric"><span class="cn">0</span><span class="cl">Pedidos perdidos</span></div>
+          <div class="c-metric"><span class="cn">3</span><span class="cl">Workflows activos</span></div>
+          <div class="c-metric"><span class="cn">72h</span><span class="cl">Tiempo entrega</span></div>
+        </div>
+        <ul class="workflow-list">
+          <li class="workflow-item"><span class="wf-icon">📋</span><div class="wf-info"><div class="wf-name">Pedidos Nuevos</div><div class="wf-flow">Formulario → N8N → Gmail → Dashboard</div></div><span class="wf-badge">Activo</span></li>
+          <li class="workflow-item"><span class="wf-icon">⚡</span><div class="wf-info"><div class="wf-name">Decisiones Admin</div><div class="wf-flow">Dashboard → N8N → Confirmación cliente</div></div><span class="wf-badge">Activo</span></li>
+          <li class="workflow-item"><span class="wf-icon">📸</span><div class="wf-info"><div class="wf-name">Social Media IA</div><div class="wf-flow">Claude API → Contenido → Email semanal</div></div><span class="wf-badge">Activo</span></li>
+        </ul>
+      </div>
+      <div class="caso-photo">
+        <img src="images/vr-strategy.jpg" alt="Andy's Bakery — Caso de Éxito" loading="lazy" />
+        <div class="caso-photo-gradient"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     8. WHY US
+════════════════════════════════════ -->
+<section id="why">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label reveal">// Por qué elegirnos</span>
+      <h2 class="reveal">Lo que nos hace diferentes</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal"><span class="why-icon">📐</span><div class="why-title">30+ Años como CPA</div><p class="why-desc">Entendemos tus números, tus procesos y tus riesgos — no solo el código. Hablamos el idioma de los negocios.</p></div>
+      <div class="why-card reveal d1"><span class="why-icon">🛡️</span><div class="why-title">Metodología de 4 Pilares</div><p class="why-desc">Cero improvisación. Cada automatización pasa por investigación, diseño, testing y retroalimentación obligatoria.</p></div>
+      <div class="why-card reveal d2"><span class="why-icon">📍</span><div class="why-title">Local en Texas</div><p class="why-desc">Basados en Katy, TX. Trabajamos con negocios de la región que hablan tu idioma — literal y figurado.</p></div>
+      <div class="why-card reveal d3"><span class="why-icon">⚡</span><div class="why-title">Resultados en 72 Horas</div><p class="why-desc">Tu primer workflow activo en 3 días. Sin meses de "implementación" ni presupuestos sorpresa al final.</p></div>
+    </div>
+    <div class="why-photos">
+      <div class="why-photo reveal"><img src="images/robot-precision.jpg" alt="Precisión IRVSG" loading="lazy" /><span class="why-photo-caption">Precisión en cada workflow</span></div>
+      <div class="why-photo reveal d2"><img src="images/robot-problem-solving.jpg" alt="Problem Solving IRVSG" loading="lazy" /><span class="why-photo-caption">Soluciones a medida</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     9. CTA
+════════════════════════════════════ -->
+<section id="contacto">
+  <div class="container">
+    <div class="cta-box reveal">
+      <span class="section-label" style="margin-bottom:1.5rem;">// Siguiente paso</span>
+      <h2 class="cta-h2">¿Cuántas horas estás<br /><span>perdiendo esta semana?</span></h2>
+      <p class="cta-sub">Un diagnóstico gratuito de 30 minutos. Sin compromiso. Descubrimos juntos qué automatizar primero y cuánto tiempo puedes recuperar.</p>
+      <div class="cta-btns">
+        <a href="https://wa.me/19546997514?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20mi%20negocio" class="btn-wa" target="_blank" rel="noopener noreferrer">💬 WhatsApp — Diagnóstico Gratis</a>
+        <a href="mailto:iromero0972@gmail.com" class="btn-email">✉️ Enviar Email</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     10. FOOTER
+════════════════════════════════════ -->
+<footer>
+  <div class="footer-wrap">
+    <a href="#" class="footer-logo"><img src="images/logo.png" alt="IRVSG" /><span>IR Virtual <em>Solution Group</em></span></a>
+    <p class="footer-tagline">Automatización con IA para PYMEs · Katy, Texas</p>
+    <ul class="footer-nav">
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#caso">Caso de Éxito</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 IR Virtual Solution Group LLC · Katy, Texas · Todos los derechos reservados</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var splash = document.getElementById('splash');
+  var splashVid = document.getElementById('splash-video');
+  var skipBtn = document.getElementById('skip-btn');
+  var navbar = document.getElementById('navbar');
+  var countersStarted = false;
+
+  document.body.style.overflow = 'hidden';
+
+  function dismissSplash() {
+    splash.classList.add('fading');
+    setTimeout(function () {
+      splash.style.display = 'none';
+      document.body.style.overflow = '';
+      navbar.classList.add('visible');
+      if (!countersStarted) { animateCounters(); countersStarted = true; }
+    }, 1050);
+  }
+
+  splashVid.addEventListener('ended', dismissSplash);
+  skipBtn.addEventListener('click', dismissSplash);
+  splashVid.addEventListener('error', dismissSplash);
+  var fallback = setTimeout(dismissSplash, 12000);
+  splashVid.addEventListener('ended', function () { clearTimeout(fallback); });
+
+  window.addEventListener('scroll', function () {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  var hamburger = document.getElementById('hamburger');
+  var navLinks = document.getElementById('nav-links');
+  var menuOpen = false;
+  hamburger.addEventListener('click', function () {
+    menuOpen = !menuOpen;
+    if (menuOpen) {
+      navLinks.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(10,14,26,0.96);backdrop-filter:blur(16px);padding:1.5rem 2rem;gap:1.25rem;border-bottom:1px solid rgba(240,180,41,0.12)';
+      hamburger.textContent = '✕';
+    } else {
+      navLinks.style.cssText = '';
+      hamburger.textContent = '☰';
+    }
+  });
+  navLinks.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { navLinks.style.cssText = ''; hamburger.textContent = '☰'; menuOpen = false; });
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = this.getAttribute('href');
+      if (id.length > 1) {
+        var t = document.querySelector(id);
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+      }
+    });
+  });
+
+  function animateCounters() {
+    document.querySelectorAll('.stat-num[data-target]').forEach(function (el) {
+      var target = parseInt(el.dataset.target, 10);
+      var suffix = el.dataset.suffix || '';
+      var dur = 1600, t0 = null;
+      function tick(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / dur, 1);
+        el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * target) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+}());
+</script>
+</body>
 </html>
