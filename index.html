@@ -41,6 +41,7 @@
 <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
 <section class="hero" id="inicio">
   <div class="hero-bg">
+    <canvas id="hero-canvas" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.7;pointer-events:none;z-index:1;"></canvas>
     <div class="hero-grid"></div>
     <div class="hero-glow hero-glow-1"></div>
     <div class="hero-glow hero-glow-2"></div>
@@ -140,6 +141,7 @@
       <div class="service-card" data-accent="electric">
         <div class="svc-num">01</div>
         <div class="svc-tag svc-tag-blue">Operaciones</div>
+        <img src="assets/img/icons/icon-orders.svg" alt="Automatización de pedidos" width="52" height="52" style="margin-bottom:0.75rem;">
         <h3>Automatización de Pedidos</h3>
         <p>Captura órdenes 24/7 desde cualquier canal, envía confirmaciones automáticas y notifica a tu equipo en tiempo real — sin tocar un papel.</p>
         <ul class="svc-list">
@@ -153,6 +155,7 @@
       <div class="service-card" data-accent="gold">
         <div class="svc-num">02</div>
         <div class="svc-tag svc-tag-gold">Atención al Cliente</div>
+        <img src="assets/img/icons/icon-chatbot.svg" alt="Asistente virtual IA" width="52" height="52" style="margin-bottom:0.75rem;">
         <h3>Asistentes Virtuales IA</h3>
         <p>Un chatbot entrenado con la información de tu negocio responde preguntas, califica prospectos y agenda citas — las 24 horas, los 7 días.</p>
         <ul class="svc-list">
@@ -166,6 +169,7 @@
       <div class="service-card" data-accent="green">
         <div class="svc-num">03</div>
         <div class="svc-tag svc-tag-green">Finanzas &amp; Contabilidad</div>
+        <img src="assets/img/icons/icon-finance.svg" alt="Automatización contable" width="52" height="52" style="margin-bottom:0.75rem;">
         <h3>Automatización Administrativa y Contable</h3>
         <p>Con más de 30 años como CPA entendemos tus números. Automatizamos la captura de datos, reportes financieros y alertas de desempeño clave.</p>
         <ul class="svc-list">
@@ -179,6 +183,7 @@
       <div class="service-card" data-accent="purple">
         <div class="svc-num">04</div>
         <div class="svc-tag svc-tag-purple">Marketing</div>
+        <img src="assets/img/icons/icon-social.svg" alt="Social media IA" width="52" height="52" style="margin-bottom:0.75rem;">
         <h3>Social Media con IA</h3>
         <p>Generamos contenido de Instagram y Facebook personalizado para tu negocio usando IA — listo para publicar, cada semana, sin que muevas un dedo.</p>
         <ul class="svc-list">
@@ -263,48 +268,9 @@
         </div>
       </div>
       <div class="caso-visual">
-        <p class="flow-label">Flujo Automatizado Activo</p>
-        <div class="flow">
-          <div class="flow-step">
-            <div class="flow-ic flow-ic-blue">🛒</div>
-            <div class="flow-txt">
-              <div class="flow-main">Cliente llena el formulario online</div>
-              <div class="flow-sub">order-form.html — GitHub Pages · 24/7</div>
-            </div>
-          </div>
-          <div class="flow-arrow">↓</div>
-          <div class="flow-step">
-            <div class="flow-ic flow-ic-blue">⚡</div>
-            <div class="flow-txt">
-              <div class="flow-main">N8N captura y procesa el pedido</div>
-              <div class="flow-sub">Workflow activo — validación automática</div>
-            </div>
-          </div>
-          <div class="flow-arrow">↓</div>
-          <div class="flow-step">
-            <div class="flow-ic flow-ic-gold">📧</div>
-            <div class="flow-txt">
-              <div class="flow-main">Email automático de confirmación</div>
-              <div class="flow-sub">Gmail SMTP — entrega instantánea</div>
-            </div>
-          </div>
-          <div class="flow-arrow">↓</div>
-          <div class="flow-step">
-            <div class="flow-ic flow-ic-gold">👩‍💼</div>
-            <div class="flow-txt">
-              <div class="flow-main">Admin aprueba desde su dashboard</div>
-              <div class="flow-sub">admin.html — acceso seguro con PIN</div>
-            </div>
-          </div>
-          <div class="flow-arrow">↓</div>
-          <div class="flow-step">
-            <div class="flow-ic flow-ic-green">✅</div>
-            <div class="flow-txt">
-              <div class="flow-main">Cliente notificado — orden confirmada</div>
-              <div class="flow-sub">E2E completo. Cero intervención manual.</div>
-            </div>
-          </div>
-        </div>
+        <img src="assets/img/case-study-mockup.svg"
+             alt="Andy's Bakery Admin Dashboard"
+             style="width:100%;border-radius:8px;display:block;">
       </div>
     </div>
   </div>
@@ -321,22 +287,30 @@
     </p>
     <div class="why-grid">
       <div class="why-card">
-        <div class="why-icon">🏦</div>
+        <div class="why-icon">
+          <img src="assets/img/why/why-cpa.svg" alt="30 años como CPA" width="64" height="64">
+        </div>
         <h4>30+ Años como CPA</h4>
         <p>Entendemos tus números, tus procesos y tus riesgos — no solo el código. Hablamos el idioma de los negocios.</p>
       </div>
       <div class="why-card">
-        <div class="why-icon">🔒</div>
+        <div class="why-icon">
+          <img src="assets/img/why/why-method.svg" alt="Metodología probada" width="64" height="64">
+        </div>
         <h4>Metodología de 4 Pilares</h4>
         <p>Cero improvisación. Cada automatización pasa por investigación, diseño, testing y retroalimentación obligatoria.</p>
       </div>
       <div class="why-card">
-        <div class="why-icon">📍</div>
+        <div class="why-icon">
+          <img src="assets/img/why/why-local.svg" alt="Local en Texas" width="64" height="64">
+        </div>
         <h4>Local en Texas</h4>
         <p>Basados en Katy, TX. Trabajamos con negocios de la región que hablan tu idioma — literal y de negocios.</p>
       </div>
       <div class="why-card">
-        <div class="why-icon">⚡</div>
+        <div class="why-icon">
+          <img src="assets/img/why/why-speed.svg" alt="72 horas de resultado" width="64" height="64">
+        </div>
         <h4>Resultados en 72 Horas</h4>
         <p>Tu primer workflow activo en 3 días. Sin meses de "implementación" ni presupuestos sorpresa al final.</p>
       </div>
@@ -380,5 +354,6 @@
 </footer>
 
 <script src="assets/js/main.js"></script>
+<script src="assets/js/particles.js"></script>
 </body>
 </html>
