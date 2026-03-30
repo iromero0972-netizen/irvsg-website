@@ -51,6 +51,16 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full">
         <div className="max-w-3xl mx-auto text-center">
+          {/* Logo prominente */}
+          <div className="flex justify-center mb-6">
+            <img
+              src="/irvsg-website/images/logo.png"
+              alt="IR Virtual Solution Group"
+              className="w-72 md:w-96 h-auto"
+              style={{ mixBlendMode: 'screen' }}
+            />
+          </div>
+
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-cyan/10 border border-cyan/25 rounded-full px-4 py-1.5 text-cyan text-xs font-semibold tracking-wider mb-8">
             <span className="w-1.5 h-1.5 bg-cyan rounded-full animate-pulse"></span>

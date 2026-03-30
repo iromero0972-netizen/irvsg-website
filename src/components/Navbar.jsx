@@ -25,7 +25,7 @@ export default function Navbar() {
     } backdrop-blur-xl border-b border-white/5`}>
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
         <a href="#inicio" className="flex items-center">
-          <img src="/irvsg-website/images/logo.png" alt="IRVSG" className="h-11 w-auto"
+          <img src="/irvsg-website/images/logo.png" alt="IRVSG" className="h-14 w-auto"
             style={{ mixBlendMode: 'screen' }} />
         </a>
 
