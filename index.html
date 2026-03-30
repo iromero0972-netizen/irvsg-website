@@ -325,34 +325,34 @@
     .proceso-photo:hover img { transform: scale(1.05); }
 
     /* ═══════════════════════════════════════
-       7. CASO DE ÉXITO
+       7. RESULTADOS
     ═══════════════════════════════════════ */
-    #caso { padding: 7rem 0; background: var(--navy); }
-    .caso-card { background: var(--navy-card); border: 1px solid rgba(240,180,41,0.2); border-radius: 22px; overflow: hidden; display: grid; grid-template-columns: 1fr 460px; }
-    @media (max-width: 920px) { .caso-card { grid-template-columns: 1fr; } }
-    .caso-body { padding: 3rem; }
-    .caso-live-tag { display: inline-flex; align-items: center; gap: 0.45rem; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); color: var(--green); font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; padding: 0.3rem 0.8rem; border-radius: 100px; margin-bottom: 1.5rem; }
-    .caso-live-tag::before { content: '●'; font-size: 0.48rem; }
-    .caso-title { font-size: clamp(1.5rem, 2.5vw, 2.1rem); font-weight: 800; line-height: 1.15; margin-bottom: 0.9rem; }
-    .caso-desc { color: var(--white-dim); font-size: 0.92rem; line-height: 1.78; margin-bottom: 1.85rem; font-weight: 300; }
-    .caso-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,0.06); border-radius: 12px; overflow: hidden; margin-bottom: 2rem; }
-    @media (max-width: 500px) { .caso-metrics { grid-template-columns: repeat(2, 1fr); } }
+    #resultados { padding: 7rem 0; background: var(--navy); }
+    .res-layout { display: grid; grid-template-columns: 1fr 460px; gap: 0; background: var(--navy-card); border: 1px solid rgba(240,180,41,0.2); border-radius: 22px; overflow: hidden; }
+    @media (max-width: 920px) { .res-layout { grid-template-columns: 1fr; } }
+    .res-body { padding: 3rem; }
+    .res-live-tag { display: inline-flex; align-items: center; gap: 0.45rem; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); color: var(--green); font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; padding: 0.3rem 0.8rem; border-radius: 100px; margin-bottom: 1.5rem; }
+    .res-live-tag::before { content: '●'; font-size: 0.48rem; }
+    .res-title { font-size: clamp(1.5rem, 2.5vw, 2.1rem); font-weight: 800; line-height: 1.15; margin-bottom: 0.9rem; }
+    .res-desc { color: var(--white-dim); font-size: 0.92rem; line-height: 1.78; margin-bottom: 1.85rem; font-weight: 300; }
+    .res-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,0.06); border-radius: 12px; overflow: hidden; margin-bottom: 2rem; }
+    @media (max-width: 500px) { .res-metrics { grid-template-columns: repeat(2, 1fr); } }
     .c-metric { background: var(--navy-mid); padding: 0.9rem 0.6rem; text-align: center; }
     .c-metric .cn { display: block; font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 500; color: var(--gold); }
     .c-metric .cl { font-size: 0.65rem; color: var(--white-muted); margin-top: 0.22rem; text-transform: uppercase; letter-spacing: 0.06em; }
-    .workflow-list { list-style: none; }
-    .workflow-item { display: flex; align-items: center; gap: 0.9rem; padding: 0.85rem 1rem; background: var(--navy-mid); border-radius: 10px; margin-bottom: 0.55rem; border: 1px solid rgba(255,255,255,0.05); transition: transform 0.2s, border-color 0.2s; }
-    .workflow-item:hover { transform: translateX(6px); border-color: rgba(240,180,41,0.2); }
-    .wf-icon { font-size: 1.15rem; flex-shrink: 0; }
-    .wf-info { flex: 1; }
-    .wf-name { font-size: 0.88rem; font-weight: 600; color: var(--white); }
-    .wf-flow { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--cyan); margin-top: 0.15rem; }
-    .wf-badge { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25); color: var(--green); font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; font-weight: 700; padding: 0.18rem 0.55rem; border-radius: 100px; flex-shrink: 0; }
-    .caso-photo { position: relative; overflow: hidden; }
-    @media (max-width: 920px) { .caso-photo { height: 260px; } }
-    .caso-photo img { width: 100%; height: 100%; object-fit: cover; }
-    .caso-photo-gradient { position: absolute; inset: 0; background: linear-gradient(to right, var(--navy-card) 0%, transparent 30%); }
-    @media (max-width: 920px) { .caso-photo-gradient { background: linear-gradient(to bottom, transparent 55%, var(--navy-card) 100%); } }
+    .cap-list { list-style: none; }
+    .cap-item { display: flex; align-items: center; gap: 0.9rem; padding: 0.85rem 1rem; background: var(--navy-mid); border-radius: 10px; margin-bottom: 0.55rem; border: 1px solid rgba(255,255,255,0.05); border-left: 3px solid var(--gold); transition: transform 0.2s, border-color 0.2s; }
+    .cap-item:hover { transform: translateX(6px); border-color: var(--gold); }
+    .cap-icon { font-size: 1.15rem; flex-shrink: 0; }
+    .cap-info { flex: 1; }
+    .cap-name { font-size: 0.88rem; font-weight: 600; color: var(--white); }
+    .cap-flow { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--cyan); margin-top: 0.15rem; }
+    .cap-badge { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25); color: var(--green); font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; font-weight: 700; padding: 0.18rem 0.55rem; border-radius: 100px; flex-shrink: 0; }
+    .res-photo { position: relative; overflow: hidden; }
+    @media (max-width: 920px) { .res-photo { height: 260px; } }
+    .res-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .res-photo-gradient { position: absolute; inset: 0; background: linear-gradient(to right, var(--navy-card) 0%, transparent 30%); }
+    @media (max-width: 920px) { .res-photo-gradient { background: linear-gradient(to bottom, transparent 55%, var(--navy-card) 100%); } }
 
     /* ═══════════════════════════════════════
        8. WHY US
@@ -441,7 +441,7 @@
     <li><a href="#nosotros">Nosotros</a></li>
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#proceso">Proceso</a></li>
-    <li><a href="#caso">Caso de Éxito</a></li>
+    <li><a href="#resultados">Resultados</a></li>
     <li><a href="#contacto">Contacto</a></li>
     <li>
       <a href="https://wa.me/19546997514?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20mi%20negocio"
@@ -469,7 +469,7 @@
     <p class="hero-sub">Automatizamos los procesos operativos, administrativos y contables de tu PYME con Inteligencia Artificial. Resultados reales en 72 horas.</p>
     <div class="hero-btns">
       <a href="https://wa.me/19546997514?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20mi%20negocio" class="btn-gold" target="_blank" rel="noopener noreferrer">💬 Diagnóstico Gratis</a>
-      <a href="#caso" class="btn-outline">Ver Caso de Éxito →</a>
+      <a href="#resultados" class="btn-outline">Ver Resultados →</a>
     </div>
     <div class="hero-stats">
       <div class="hero-stat-item"><span class="stat-num" data-target="90" data-suffix="%">0%</span><span class="stat-label">Reducción tareas manuales</span></div>
@@ -611,34 +611,35 @@
 </section>
 
 <!-- ════════════════════════════════════
-     7. CASO DE ÉXITO
+     7. RESULTADOS
 ════════════════════════════════════ -->
-<section id="caso">
+<section id="resultados">
   <div class="container">
     <div class="section-head">
-      <span class="section-label reveal">// Caso de éxito real · Katy, TX</span>
-      <h2 class="reveal">Así lo hacemos en la práctica</h2>
+      <span class="section-label reveal">// Resultados comprobados</span>
+      <h2 class="reveal">Automatización que transforma negocios reales</h2>
+      <p class="reveal d1">Nuestros clientes en Texas ya operan con flujos inteligentes que eliminan el trabajo manual y reducen errores a cero.</p>
     </div>
-    <div class="caso-card reveal">
-      <div class="caso-body">
-        <span class="caso-live-tag">Caso de Éxito Activo</span>
-        <h3 class="caso-title">Andy's Bakery — Pastelería Artesanal</h3>
-        <p class="caso-desc">Transformamos una pastelería artesanal en un negocio digital-first: pedidos online con confirmaciones automáticas, dashboard de administración con PIN de acceso, y contenido de Instagram generado por IA cada semana.</p>
-        <div class="caso-metrics">
-          <div class="c-metric"><span class="cn">100%</span><span class="cl">Digital</span></div>
-          <div class="c-metric"><span class="cn">0</span><span class="cl">Pedidos perdidos</span></div>
-          <div class="c-metric"><span class="cn">3</span><span class="cl">Workflows activos</span></div>
-          <div class="c-metric"><span class="cn">72h</span><span class="cl">Tiempo entrega</span></div>
+    <div class="res-layout reveal">
+      <div class="res-body">
+        <span class="res-live-tag">En Operación</span>
+        <h3 class="res-title">Resultados medibles desde el primer workflow</h3>
+        <p class="res-desc">Cada implementación entrega métricas reales: menos tiempo manual, cero errores en procesos automatizados y operación continua sin que tengas que estar pendiente.</p>
+        <div class="res-metrics">
+          <div class="c-metric"><span class="cn">90%</span><span class="cl">Reducción tareas manuales</span></div>
+          <div class="c-metric"><span class="cn">0</span><span class="cl">Errores en procesos automatizados</span></div>
+          <div class="c-metric"><span class="cn">72h</span><span class="cl">De concepto a primer workflow</span></div>
+          <div class="c-metric"><span class="cn">24/7</span><span class="cl">Operación continua</span></div>
         </div>
-        <ul class="workflow-list">
-          <li class="workflow-item"><span class="wf-icon">📋</span><div class="wf-info"><div class="wf-name">Pedidos Nuevos</div><div class="wf-flow">Formulario → N8N → Gmail → Dashboard</div></div><span class="wf-badge">Activo</span></li>
-          <li class="workflow-item"><span class="wf-icon">⚡</span><div class="wf-info"><div class="wf-name">Decisiones Admin</div><div class="wf-flow">Dashboard → N8N → Confirmación cliente</div></div><span class="wf-badge">Activo</span></li>
-          <li class="workflow-item"><span class="wf-icon">📸</span><div class="wf-info"><div class="wf-name">Social Media IA</div><div class="wf-flow">Claude API → Contenido → Email semanal</div></div><span class="wf-badge">Activo</span></li>
+        <ul class="cap-list">
+          <li class="cap-item"><span class="cap-icon">📋</span><div class="cap-info"><div class="cap-name">Captura de pedidos digital</div><div class="cap-flow">Formularios web → Notificación automática → Dashboard en tiempo real</div></div><span class="cap-badge">Implementado</span></li>
+          <li class="cap-item"><span class="cap-icon">⚡</span><div class="cap-info"><div class="cap-name">Decisiones automatizadas</div><div class="cap-flow">Aprobaciones → Flujo condicional → Confirmación al cliente</div></div><span class="cap-badge">Implementado</span></li>
+          <li class="cap-item"><span class="cap-icon">📸</span><div class="cap-info"><div class="cap-name">Contenido IA</div><div class="cap-flow">Generación automática → Revisión → Publicación programada</div></div><span class="cap-badge">Implementado</span></li>
         </ul>
       </div>
-      <div class="caso-photo">
-        <img src="images/vr-strategy.jpg" alt="Andy's Bakery — Caso de Éxito" loading="lazy" />
-        <div class="caso-photo-gradient"></div>
+      <div class="res-photo">
+        <img src="images/vr-strategy.jpg" alt="Resultados IRVSG — Automatización IA" loading="lazy" />
+        <div class="res-photo-gradient"></div>
       </div>
     </div>
   </div>
@@ -694,7 +695,7 @@
       <li><a href="#nosotros">Nosotros</a></li>
       <li><a href="#servicios">Servicios</a></li>
       <li><a href="#proceso">Proceso</a></li>
-      <li><a href="#caso">Caso de Éxito</a></li>
+      <li><a href="#resultados">Resultados</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
     <p class="footer-copy">© 2026 IR Virtual Solution Group LLC · Katy, Texas · Todos los derechos reservados</p>
