@@ -55,11 +55,11 @@ export default function Hero() {
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full">
         <div className="max-w-3xl mx-auto text-center">
           {/* Logo prominente */}
-          <div className="flex justify-center mb-4">
+          <div className="flex justify-center mb-0 -mt-8">
             <img
               src="/irvsg-website/images/logo.png"
               alt="IR Virtual Solution Group"
-              className="w-[340px] md:w-[560px] h-auto"
+              className="w-full max-w-[520px] md:max-w-[780px] h-auto"
               style={{ mixBlendMode: 'screen' }}
             />
           </div>
